@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="TicTacToeSetup" Language="1033" Version="1.0.0.0" Manufacturer="Tarun" UpgradeCode="0f2e5f3a-901a-4603-8ddc-b7e7b564d603">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature Id="ProductFeature" Title="TicTacToeSetup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="TicTacToeSetup" >
+          <Directory Id="INSTALLFOLDERIMAGES" Name="Images" />
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="TicTacToe" />
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop" />
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents">
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <Component Id="ProductComponent" Directory="INSTALLFOLDER">
+        <File Source="$(var.TicTacToe.TargetPath)" />
+        <RemoveFolder Id='RemoveProgramMenuDir' Directory='ProgramMenuDir' On='uninstall' />
+
+      </Component>
+      <Component Id="ProductComponentImages" Directory="INSTALLFOLDERIMAGES" Guid="F76C617F-C2F7-45A8-BC83-535DE9CE5F77">
+        
+
+        <File Source="C:\SourceCode\DotNet\TicTacToe\TicTacToe\Images\Cross.png" Id="FileCross"/>
+        <File Source="C:\SourceCode\DotNet\TicTacToe\TicTacToe\Images\Zero.png" Id="FilesZero"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
